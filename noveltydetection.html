@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>Mutombi - Novelty Detection</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">Thomas Mutombi Drayton</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">intro</a></li>
+                <li><a href="index.html#portfoliocontents" class="active">portfolio</a></li>
+                <li><a href="index.html#aboutme">about me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <img class="image fit" src="images/turbineswirl2.jpg" alt="Turbine Fan" />
+            <div class="inner">
+                <h2>Novelty Detection of Rolls Royce Engine Data</h2>
+                <ol>
+                    <a href="#background ">
+                        <li>1. Data Set Background</li>
+                    </a>
+                    <a href="#commercial ">
+                        <li>2. Commercial Incentives</li>
+                    </a>
+                    <a href="#projwrk ">
+                        <li>3. Project Workflow</li>
+                    </a>
+                    <a href="#dpp">
+                        <li>4. Data Preparation</li>
+                    </a>
+                    <a href="#ica">
+                        <li>5. Initial Classification Attempts</li>
+                    </a>
+                    <a href="#fs">
+                        <li>6. Feature Selection</a>
+                    <ol>
+                        <a href="#iva">
+                            <li>6.1. Individual Variable Analysis</li>
+                        </a>
+                        <a href="#fss">
+                            <li>6.2. Forward Sequential Selection</li>
+                        </a>
+                        <a href="#featex">
+                            <li>6.3. Feature Extraction</li>
+                        </a>
+                    </ol>
+                    </li>
+                    <a href="#relrisk">
+                        <li>7. Relative Risk Analysis</a>
+                    <ol>
+                        <a href="#conc">
+                            <li>7.1. Conclusion </li>
+                        </a>
+                    </ol>
+                    <a href="#ref">
+                        <li>8. References</li>
+                    </a>
+                    </li>
+
+                </ol>
+                <h3 id="background">1.1 Data Set Background</h3>
+                <p>
+                    Jet engine test data is both high dimensional and very imbalanced. The high complexity and safety critical nature of jet engine design means that faulty behaviour is infrequent, even though engine testing is a rigorous and detailed process. These data
+                    set characteristics presented problems with regard to employing common classification methods.
+                </p>
+                <h3 id="commercial">1.2 Commercial Incentives</h3>
+                <p>
+                    As this problem was constrained to binary classification, the goal of a given model would be to minimise both false positives and false negatives:
+                    <ul>
+                        <li>
+                            Minimisation of false negatives during the testing process would reduce investigations from maintenance engineers, hence improving the efficiency of jet engine testing and giving the company a competitive edge.
+                        </li>
+                        <li>
+                            Furthermore, minimisation of false positives reduces mis-detections which is potentially of more significance as mis-detections are of greater consequences depending on the reliance placed on the algorithm.
+                        </li>
+                    </ul>
+                </p>
+                <h3 id="projwrk">1.3 Project Workflow</h3>
+                <a class="image fit"><img src="images/thesisworkflow.png" alt="Thesis Workflow" /></a>
+                <br>
+                <h3 id="dpp">1.4 Data Preparation and Pre-processing</h3>
+                <p>The computational demands of analysing complete time series data would've been too great for the time limitations that existed during the project. Therefore, focus was place on steady state conditions by segmenting the time history of
+                    signals and sampling at mid-points.</p>
+                <!--<a class="image fit"><img src="images/time_series_seg.png" alt="Time Series Segmentation Example" /></a>-->
+                <p>
+                    For example, elimination of transient signals was achieved when<math><mfrac><mi>d</mi><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&gt;</mo><mi>&#x3B1;</mi></math> where the time series, <math><msub><mi>y</mi><mn>1</mn></msub><mo>,</mo><mo>&#x2026;</mo><mo>,</mo><msub><mi>y</mi><mi>n</mi></msub></math>                    , was smoothed by a 2-sided moving average:
+                    <math><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><munderover><mo>&#x2211;</mo><mrow><mi>j</mi><mo>=</mo><mo>-</mo><mi>k</mi></mrow><mi>k</mi></munderover><msub><mi>y</mi><mrow><mi>t</mi><mo>+</mo><mi>j</mi></mrow></msub></math>,
+                    <math><mi>t</mi><mo>=</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>k</mi><mo>+</mo><mn>2</mn><mo>,</mo><mo>&#x2026;</mo><mo>,</mo><mi>n</mi><mo>-</mo><mi>k</mi></math>. The threshold
+                    <math><mi>&#x3B1;</mi></math> was tuned to give distinct segmentation.
+                </p>
+                <h3 id="ica">1.5 Initial Classification Attempts</h3>
+                <p>
+                    A common method to create a regression model to describe normal behaviour was through the use of a Gaussian Process. This is a popular choice for problems that require an unknown function to be constructed from given input data where the confidence of
+                    the function’s fit can be expressed with error bars. In general, a GP defines a distribution over functions where we can assume that the output <math><mi>y</mi></math> of a function <math><mi>f</mi></math> at input
+                    <math><mi mathvariant="bold">x</mi></math> can be written as,
+                </p>
+                <math display="block"><mi>y</mi><mo>=</mo><mi>f</mi><mo>(</mo><mi mathvariant="bold">x</mi><mo>)</mo><mo>+</mo><mi>&#x3F5;</mi></math>
+                <p>
+                    where <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math> and <math><mi>&#x3F5;</mi><mo>~</mo><mi mathvariant="script">N</mi><mo>(</mo><mn>0</mn><mo>,</mo><msup><mi>&#x3C3;</mi><mn>2</mn></msup><mo>)</mo></math> are referred to as
+                    the signal term and the noise term respectively. <math><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math> reflects the uncertainty of the distributions over <math><mi>f</mi></math>, and <math><mi>&#x3F5;</mi></math> reflects the randomness
+                    of the input data by following a Gaussian distribution.
+                </p>
+                <p>
+                    From the relevant literature on novelty detection and industry heuristics, success has been had by analysing vibration sensors data in the different compressor stages of turbines, along with other temperature and pressure sensors, therefore GP regression
+                    models were fitted to this subset of variables.
+
+                </p>
+                <p style="text-align: center;"><img src="images/gpregression.jpg" class="image fit" alt="Subset Discordancy Tests" />Above is an example of GP regression demonstrated by <a href="https://danmackinlay.name/notebook/gp_regression.html">Chi Feng's regression demo</a></p>
+                <p>
+                    Each GP regression curve was encapsulated by a 95% confidence interval in which the distribution was solely modelled on the data from engines displaying normal behaviour. This confidence interval served as an informal discordancy test to qualitatively
+                    assess the performance of constructing a normality model in order to classify faulty data points as outliers.
+                </p>
+                <p>
+                    Classification based on the outlier assumption was shown not to be valid for univariate data. It was concluded that consideration of univariate data was too simple, hence multivariate data would need to be analysed instead. However, in general, inclusion
+                    of irrelevant or redundant features only served to make the classification problem more challenging by increasing the dimensionality of the problem, without information gain. This called for data exploration by individua analysis of
+                    variables followed by feature selection to identify variables that showed greater discrimatory information.
+                </p>
+                <h3 id="fs">2. Feature Selection</h3>
+                <h4 id="iva">2.1 Individual Variable Analysis</h4>
+                <p>
+                    To rank all variables in the data set, a classification score was used from the k-Nearest Neighbours algorithm, that relies on the assumption that data point belongs to the majority class from k-nearest neighbours where, <math><mi>&#x3BA;</mi><mo>&#x2208;</mo><mo>{</mo><mn>1</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo>,</mo><mn>7</mn><mo>}</mo></math>.
+                    The idea of this was to create a ranked list of discrimatory variables and therefore gain insight into which variables should be the focus of future work. Along with varying k, difference performance metrics were used in order to deal
+                    with class skew to get a better pricture of performance. Testing was achieved using 10-fold stratified cross-validation.
+                    <a class="image fit"><img src="images/univarite_rank_fl_censored.png" alt="Univariate Rankings" /></a>
+                </p>
+                <p>
+                    Using k = 1 in the k-NN algorithm allowed for more discriminatory information to be revealed for each of the variables overall. This is because the algorithm was able to correctly classify a particular class to a greater degree than other values of k.
+                    However as dimensionality increases, it's performance may not.
+                </p>
+                <p>
+                    The three classification metrics used resulted in very similar variable ranks for a given k, although the definition for Cohen’s Kappa and average class accuracy made it more immune to divide-by-zero errors. For this reason, these two metrics were carried
+                    forward for use in Sequential Forward Selection.
+                </p>
+                <h4 id="fss">2.2 Forward Sequential Selection</h4>
+                <p>
+                    Considered as a greedy search algorithm, SFS makes the optimal decision at each stage of the algorithm by repetitively selecting and adding the variable that produces the maximum classification score[22]. This method results in a suboptimal variable subset
+                    but is much faster than the exhaustive search methods. The main problem with SFS is that it is unable to remove redundant variables that may appear as the subset increases in size. Therefore, larger subsets tend to perform worse than
+                    those that are small[13].
+                    <a class="image fit"><img src="images/sfs_accuracy_fl.png" alt="Sequential Forward Selection" /></a>
+                    The most informative subset was found to exist from the first 8 selected variables from the SFS algorithm, where the true positive rate is maximised and the false positive is minimised.
+                </p>
+                <h3 id="featex">2.2 Feature Extraction</h3>
+                <p>
+                    Previously, feature selection reduced the number of input dimensions by selecting a subset of variables from the original data set. Feature extraction di↵ers from this in that new features are derived from the original ones, where the new features contain
+                    the extract discriminative information from the original ones.
+                </p>
+                <p>
+                    The feature extraction methods used were applied to the feature selection subsets previously obtained, but to cover more possibilities, the subset from a exhaustive search was also used in Principle Component Analysis (PCA) and Fisher’s Linear Discriminant
+                    (FLD). For the reasons of confidentiality, the details and results from the methods are skipped.
+                </p>
+                <h3 id="relrisk">7. Relative Risk Analysis</h3>
+                <p>
+                    This classification work made use of the likelihood ratio in identifying the relative risk of detecting an observation that belongs to a given distribution, in a 2-dimensional space. The analysis utilises hypothesis testing, where a claim about an observation,
+                    the null hypothesis, is tested against an alternative hypothesis. Performing this analysis provided a means to check whether the likelihood ratio would exceeded a specified threshold, which would indicate areas of concern, for a given
+                    feature space, or subspace. Depending on the threshold, descriptive and nonlinear decision boundaries were formed, which were able to successfully characterised class distributions.
+                </p>
+                <video width="10%" height="10%" autoplay loop muted>
+                        <source src="images/videos/basic_animation_600.mp4" />
+                    </video>
+                <p style="text-align: center;">An example of modelling relative risk from a data set of random values.</p>
+                <p>
+                    As shown by the ROC curves below, the log-likelihood model showed relatively good generalised classification performance when evaluated over all thresholds. This is indicated by the AUC metrics displayed in each subplot, where the average value 0.85 from
+                    both cross-validations is an improvement on the ROC curve.
+                </p>
+                <img src="images/efs_hl_roc_cv5_cv10.png" class="image fit" alt="ROC Curves Relative Risk" />
+                <h4 id="conc">7.1. Conclusion</h4>
+                <p>
+                    As expected, there existed a mild spread of classification performance with AUC standard deviations of 0.062 and 0.067 for the 5-fold and 10-fold stratified cross-validation respectively. Even though the AUC standard deviations were very similar, this
+                    only represented the variation in performance over all thresholds. Visually, the relatively narrow spread of ROC curves in 5-fold compared to 10-fold cross validation shows the importance of generally using a larger number of folds
+                    in order to get a better estimate on the generalised performance of the classification methodology. But the greater variation of ROC curves for 10-fold cross validation was likely due to the smaller sample size using during testing.
+                    This was particularly influential when the data set was imbalanced which is why large jumps in FPR values can be seen, as there were very few faulty class observations in the test.
+                </p>
+                <p>
+                    However, it should be noted that increased folds meant that the model was more likely to overfit on a given class during training, as there would be a larger training sample size for the k-folds. This meant that the bandwidth selection in kernel density
+                    estimation tended to over-emphasise faulty and normal regions due to its sensitivity to sample size. But since a ratio existed, this overfitting was somewhat cancelled out, which explains the generally good classification performance.
+                </p>
+                <hr>
+                <h4 id="ref">8. References</h4>
+                <ol>
+                    <li>[22] John D Kelleher, Brian Mac Namee, and Aoife D’arcy. Fundamentals of machine learning for predictive data analytics: algorithms, worked examples, and case studies. MIT Press, 2015.</li>
+                    <li>[13] Ricardo Gutierrez-Osuna. L11: sequential feature selection. http://research.cs. tamu.edu/prism/lectures/pr/pr l11.pdf. 2019.</li>
+                </ol>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>Thomas Mutombi Drayton</li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

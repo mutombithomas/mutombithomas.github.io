@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>Mutombi - Actuation Model</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">Thomas Mutombi Drayton</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">intro</a></li>
+                <li><a href="index.html#portfoliocontents" class="active">portfolio</a></li>
+                <li><a href="index.html#aboutme">about me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                <h2>Simulation Work</h2>
+                <h4>Linear-Rotary Actuation</h4>
+                <p>
+                    The model below is an example of first principles modelling of an actuator system. A ball screw actuator is one that converts rotational motion <math><mi>&#x3B8;</mi></math> into linear motion <math><mi>x</mi></math>, typically via
+                    an electric motor.
+                </p>
+                <img class="image fit" src="images/electromech/ballscrewfreebody.png" alt="" />
+                <p>
+                    State space representation of the system was derived from a free body diagram which accounted for the stiffness (<math><mi>k</mi></math>) and damping (<math><mi>C</mi></math>) terms of the ball screw shaft (<math><mi>s</mi></math>                    subscript) and the ball screw nut (<math><mi>n</mi></math> subscript). The motion of the nut is described by This is not displayed in the image above.
+                </p>
+                <math style="display: block;">
+                    <mfenced open="[" close="]"><mtable><mtr><mtd><mover><msub><mi>&#x3B8;</mi><mi>s</mi></msub><mo>&#x2D9;</mo></mover></mtd></mtr><mtr><mtd><mover><msub><mi>&#x3B8;</mi><mi>s</mi></msub><mo>&#xA8;</mo></mover></mtd></mtr><mtr><mtd><mover><msub><mi>x</mi><mi>n</mi></msub><mo>&#x2D9;</mo></mover></mtd></mtr><mtr><mtd><mover><msub><mi>x</mi><mi>n</mi></msub><mo>&#xA8;</mo></mover></mtd></mtr></mtable></mfenced><mo>=</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mo>-</mo><msub><mi>k</mi><mi>s</mi></msub><mo>/</mo><msub><mi>J</mi><mi>s</mi></msub></mtd><mtd><mo>-</mo><msub><mi>C</mi><mi>s</mi></msub><mo>/</mo><msub><mi>J</mi><mi>s</mi></msub></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mo>-</mo><msub><mi>k</mi><mi>n</mi></msub><mo>/</mo><msub><mi>M</mi><mi>n</mi></msub></mtd><mtd><mo>-</mo><msub><mi>C</mi><mi>n</mi></msub><mo>/</mo><msub><mi>M</mi><mi>n</mi></msub></mtd></mtr></mtable></mfenced><mfenced open="[" close="]"><mtable><mtr><mtd><msub><mi>&#x3B8;</mi><mi>s</mi></msub></mtd></mtr><mtr><mtd><mover><msub><mi>&#x3B8;</mi><mi>s</mi></msub><mo>&#x2D9;</mo></mover></mtd></mtr><mtr><mtd><msub><mi>x</mi><mi>n</mi></msub></mtd></mtr><mtr><mtd><mover><msub><mi>x</mi><mi>n</mi></msub><mo>&#x2D9;</mo></mover></mtd></mtr></mtable></mfenced><mo>+</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>1</mn><mo>/</mo><msub><mi>J</mi><mi>s</mi></msub></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mo>-</mo><mn>1</mn><mo>/</mo><msub><mi>M</mi><mi>n</mi></msub></mtd></mtr></mtable></mfenced><mfenced open="[" close="]"><mtable><mtr><mtd><msub><mi>T</mi><mi>m</mi></msub></mtd></mtr><mtr><mtd><msub><mi>F</mi><mi>c</mi></msub></mtd></mtr></mtable></mfenced>
+                </math>
+                <img class="image fit" src="images/electromech/ballscrewsmall.jpg" alt="" />
+                <p>
+                    The figure above shows control of the actuator model in response to a smoothed step function via PID feedback control.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>Thomas Mutombi Drayton</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>Mutombi - Computer Vision</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">Thomas Mutombi Drayton</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">intro</a></li>
+                <li><a href="index.html#portfoliocontents" class="active">portfolio</a></li>
+                <li><a href="index.html#aboutme">about me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <img class="image fit" src="images/geavionics/cockpitscreen2.jpg " alt="Cockpit Simulator " style="margin: 0em 0em 0em 0em;" />
+            <div class="inner">
+                <h2>GE Avionics: Automated User Recognition in Cockpits</h2>
+                <ol>
+                    <a href="#background ">
+                        <li>1. Background and Commercial Incentives</li>
+                    </a>
+                    <a href="#objecttracking ">
+                        <li>2. Object Tracking</a>
+                    <ol>
+                        <a href="#investover ">
+                            <li>2.1. Investigation Overview</li>
+                        </a>
+                        <a href="#evalmeth ">
+                            <li>2.2. Evaluation Methodology</li>
+                        </a>
+                        <a href="#res&d ">
+                            <li>2.3. Results & Discussion</li>
+                        </a>
+                        <a href="#objtrkconc ">
+                            <li>2.4 Object Tracking Conclusion</li>
+                        </a>
+                    </ol>
+                    </li>
+                    <a href="#fingertipd&o ">
+                        <li>3. Fingertip Detection & Occulsion</a>
+                    <ol>
+                        <a href="#handid ">
+                            <li>3.1. Hand Identification</li>
+                        </a>
+                        <a href="#fingertipd ">
+                            <li>3.2. Fingertip Detection</li>
+                        </a>
+                        <a href="#dealingwo ">
+                            <li>3.3. Dealing With Occulsion</li>
+                        </a>
+                    </ol>
+                    </li>
+                    <a href="#ref">
+                        <li>4. References</li>
+                    </a>
+                </ol>
+                <h3 id="background ">1. Background and Commercial Incentive</h3>
+                <p>
+                    Large area displays in cockpits are becoming increasingly common in modern designs for commercial aircraft to increase ease of operations and to make efficient use of limited cockpit space[8][9][10]. Touchscreen sensors alone cannot identify when multiple
+                    users are interacting with the touchscreen or which touch coordinates belong to each user[12]. For this reason, there is a growing need to use computer vision techniques to automate user recognition to avoid inadvertent commands that
+                    are not acceptable in the safety critical Aerospace domain.
+                </p>
+
+                <br>
+                <h2 id="bbjecttracking">2. Object Tracking</h2>
+                <h4 id="investover">2.1 Investigation Overview</h4>
+                <p>
+                    An investigation into object tracking algorithms as part of python’s OpenCV library was performed in order to gauge the performance of standard object algorithms. Using the vertical camera position, a candidate set of tracking algorithms were investigated
+                    and are briefly described in table 1.
+                </p>
+                <section>
+                    <div class="table-wrapper ">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>OpenCV Algorithm</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>BOOSTING</td>
+                                    <td>At runtime, the classifier is trained via two bounding boxes: a positive instance as well as a negative instance of the object to be tracked. During runtime, classification is run on the current bounding box pixels
+                                        as well as a neighbourhood of pixels[3].</td>
+
+                                </tr>
+                                <tr>
+                                    <td>MIL (Multiple Instance Learning</td>
+                                    <td>Similar to the BOOSTING algorithm with an emphasis on positive instances instead of negative ones .</td>
+
+                                </tr>
+                                <tr>
+                                    <td>TLD (Tracking-Learning-Detection)</td>
+                                    <td>Instead of learning features from the first frame, the algorithm updates changing features during tracking progression [5].</td>
+
+                                </tr>
+                                <tr>
+                                    <td>KCF (Kernelized Correlation Filter)</td>
+                                    <td>The KCF learns a model of the object from the first frame and subsequently attempts to locate the same model in future frames[4].</td>
+
+                                </tr>
+                                <tr>
+                                    <td>CSRT (Channel Spatial Reliability Tracker)</td>
+                                    <td>Uses a Discriminative Correlation Filter with Channel and Spatial Reliability [7].</td>
+                                </tr>
+                                <tr>
+                                    <td>MEDIANFLOW</td>
+                                    <td>Tracks a given object using the backward and forward frames with respect to the current one [6]</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <h4 id="evalmeth ">2.2 Evalution Methodology</h4>
+                <p>
+                    Evaluation of each object tracking algorithm was performed by individually assessing the performance on 3 separate videos, each of which simulated realistic user interactions with the monitor that would be seen in the cockpit environment.
+                </p>
+                <video autoplay loop id="obj_trk ">
+                    <source src="images/videos/CSRT_tracker.mp4 "/>
+                </video>
+                <!--<img src="images/hands.jpg " class="image fit " />-->
+                <p>
+                    Figure 1. Demonstration CRST algorithm successfully tracking single touch after instantiating the classifier.
+                </p>
+                <p>
+                    Evaluation of the tracking performance was based on the speed of the algorithm, as well as the precision and recall classification metrics defined below.
+                </p>
+                <math display="block "><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></math>
+                <math display="block "><mi>R</mi><mi>e</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>l</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></math>
+                <p>
+                    Precision indicates the proportion of correct predictions out of all positive predictions, whereas recall provides a measure of how likely the algorithm is to make the correct prediction. An ideal algorithm would maximise these metrics to 1. Each prediction
+                    was classified in relation to a hand-labelled ground truth (<i>GT</i>) for each frame where a bounding box of constant dimensions defined a true positive. To gauge the similarity of a prediction to the <i>GT</i>,
+                    the Intersection Over Union (<i>IOU</i>) metric was used as shown below, where <i>P</i> is the predicting bounding box of the same dimensions as the <i>GT</i>.
+                </p>
+                <math display="block "><mi>I</mi><mi>O</mi><mi>U</mi><mo>=</mo><mfrac><mrow><mi>G</mi><mi>T</mi><mo largeop="true ">&#x2229;</mo><mi>P</mi></mrow><mrow><mi>G</mi><mi>T</mi><mo largeop="true ">&#x2229;</mo><mi>P</mi></mrow></mfrac></math>
+                <p>
+                    Depending on the threshold, T, set for the algorithm, <math><mi>I</mi><mi>O</mi><mi>U</mi><mo>&#x2265;</mo><mi>T</mi></math> determines a true positive and value below is classified as a false positive. If the tracker fails to give
+                    any prediction, a false negative is flagged. For all videos in the data set, thresholds <math><mi>T</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math> were assessed. The area under the curve (AUC) was computed
+                    for each metric which is referenced in the results section.
+                </p>
+                <h4 id="res&d ">2.3 Results & Discussion</h4>
+                <p>
+                    Evaluation of the algorithms given in table 1 was completed for all hand crossing scenarios. The subplots shown in figure 2 display the precision of the tracking algorithms over the full range of IoU thresholds. The degradation of all trackers as the
+                    threshold was increased was the result of the stricter requirement to capture a greater proportion of the GT to assign a true positive classification. With regard to relative performances, the CSRT performed outperformed the other
+                    tracking algorithms with the highest average precision AUC score and for all 3 hand crossing scenarios at 0.58.
+                </p>
+                <p>
+                    <img src="images/geavionics/obj_trkng_precision.jpg " class="image fit " /> Figure 2. Comparison of precision of object tracking algorithms for all 3 hand motions: single touch (top left); non-crossing touch (top right); crossing touch
+                    (bottom).
+                </p>
+                <p>
+                    A perfect recall score for trackers such as CSRT and MEDIANFLOW was indicative of their ability to avoid prediction failure, irrespective of whether the prediction was correct or not. This can be inferred from the recall definition where the metric is
+                    strongly influenced by the false negative count. Therefore, the all trackers that showed a non-unity score, contained instances where no predicting bounding box was projected. TLD consistently failed in this regard, as well as in the
+                    speed comparison.
+                </p>
+                <p><img src="images/geavionics/obj_trkng_recall.jpg " class="image fit " />Figure 3. Comparison of recall of object tracking algorithms for all 3 hand motions: single touch (top left); non-crossing hands (top right); crossing touch (bottom).</p>
+
+                <p>
+                    The rate at which algorithms were able to process each frame while tracking is shown in figure X by the FPS. Although CSRT was able to better predict the GT than all other algorithms, it could not match the others for speed. KCF and MEDIANFLOW were showed
+                    their ability to efficiently process each frame from their high FPS rate but both with severe fluctuations. The reason for this is could not be specifically identified but could be due to the computer hardware used for the investigation.
+                </p>
+                <p>
+                    <img src="images/geavionics/obj_trkng_speed.jpg " class="image fit " />Figure 4. Comparison of algorithms speed for all 3 hand motions: single touch (top left); non-crossing hands (top right); crossing touch (bottom).</p>
+                </p>
+                <h4 id="objtrkconc ">2.4 Object Tracking Conclusion</h4>
+                <p>
+                    In general, the investigation into the use of OpenCV’s object tracking algorithms concluded that even the most accurate algorithm, was too erratic and slow for use in any system that demands reliability. Furthermore, the inability of any algorithm to
+                    deal with occlusion was a key factor in deciding not to pursue this approach any further.
+                </p>
+                <h2 id="fingertipd&o ">3. Fingertip Detection & Occulsion</h2>
+                <p>
+                    In addition to the assessment of OpenCV's tracking algorithms, a separate hand tracking methodology was developed and implemented using OpenCV's library of computer vision functions. These specifically focused on hand identification through pixel manipulation,
+                    as well as fingertip detection. Both methdologies are described below.
+                </p>
+                <h4 id="handid ">3.1 Hand Identification</h4>
+                <p>
+                    After the infrared video feed was recieved by a python script, a perspective transform was applied to each frame to focus only on the touch screen display. A Gaussian blur was then applied to each frame. This is where each pixel is the sum of all the
+                    pixels within a specified radius, which is then multiplied by a gaussian kernel.
+                </p>
+                <p>
+                    This causes small groups of white pixels to decrease in value while large groups remain relatively unaffected, resulting in noise and small objects being removed from the image when a threshold is applied. The resulting image has a black background with
+                    only hands and arms remaining.
+                </p>
+                <img src="images/geavionics/separate_hands.jpg " class="image right " />
+                <p>
+                    To differentiate between objects that enter the frame, OpenCV's function <i>findContours</i> was used. This uses edge detection to return an array containing an outline of each individual object found within the image. However, in
+                    order to match objects between frames, Zernike moments were used, which outputs an array of values that describe the properties of the image, including its size, shape and colour distribution. This was used to compare the similarity
+                    of two objects. If the moments match between two objects in consecutive frames, they were identified as being the same object and assigned a colour, as shown in the figure. If multiple objects from the previous frame were matched to
+                    a single object in the current frame, the occlusion case was triggered, which is described in section 3.3.
+                </p>
+
+                <p>
+                    Athough each object in the frame was able to be matched to the same object previous frames, OpenCV's SIFT feature detection was used to track the movement of the hand. Since each individual hand was identified, fingertip detection was implemented.
+                </p>
+                <h4 id="fingertipd ">3.2 Fingertip Detection</h4>
+                <p>
+                    <span><img src="images/geavionics/fingertip.jpg " class="image right " /></span> Fingertip detection and tracking was implemented using contour detection and convex hull techniques. Using the output of <i>findContours</i>, the <i>convexHull</i>                    function was used to generate a convex hull. This can be described as the smallest polygon that will contain the contour detected. The <i>convexityDefects</i> function was then used to approximate the gaps between the contour and convex
+                    hull using straight lines. An example of this technique can be seen in the figure to the right.
+                </p>
+                <p>
+                    To filter between fingertips and other identified defects, the inner angles between the convexity defect lines was calculated using the the following logic: if the inner angle was found to be ≤ 90 degrees the defect was treated as a fingertip and marked.
+                    If it was found to be larger the defect, it was ignored. This methodology allows for all fingertips to be tracked simultaneously.
+                </p>
+                <h4 id="dealingwo ">3.3 Dealing with Occlusion</h4>
+                <p>
+                    To deal with occlusion, a Gaussian mixture method model (GMM) was created for each hand found in the video feed. Between each frame, the hand was tracked and the hand in the current frame was translated to the position of the model. The current hand was
+                    then applied to the model and over time, as the hand moves into the frame, the model of the full hand is created. Figure 5 shown the progression of the GMM as the users hand moves into the frame; every 5th frame is shown as the movement
+                    between individual frames is minimal.
+                </p>
+                <p style="text-align: center; "><img src="images/geavionics/occulsion_prog.jpg " class="image fit " /> Figure 5. Gaussian Mixture Model progression.</p>
+                <p>
+                    By creating a model of the hand and tracking it between frames, when occlusion occurs, the model can be overlaid on the portion of the users hand/arm that’s visible. This then shows where the hidden portion would be. An example of this is shown in figure
+                    6.
+                </p>
+                <p>
+                    <img src="images/geavionics/occulsion_example.jpg " class="image fit " />Figure 6. Occulsion example: the left image shows the output from the infrared camera where the left hand is obscured by the right hand. The right image shows
+                    the model of each hand that has been overlaid and therefore the position of the left hands fingertip can be identified.
+                </p>
+                <h3>4. References</h3>
+                <ol>
+                    <li>[3] Babenko, Boris, Ming-Hsuan Yang, and Serge Belongie. "Visual tracking with online multiple instance learning." 2009 IEEE Conference on Computer Vision and Pattern Recognition. IEEE, 2009.</li>
+                    <li>[4] Henriques, João F., et al. "High-speed tracking with kernelized correlation filters." IEEE transactions on pattern analysis and machine intelligence 37.3 (2015): 583-596.</li>
+                    <li>[5] Kalal, Zdenek, Krystian Mikolajczyk, and Jiri Matas. "Tracking-learning-detection." IEEE transactions on pattern analysis and machine intelligence 34.7 (2012): 1409-1422.</li>
+                    <li>[6] Kalal, Zdenek, Krystian Mikolajczyk, and Jiri Matas. "Forward-backward error: Automatic detection of tracking failures." 2010 20th International Conference on Pattern Recognition. IEEE, 2010.</li>
+                    <li>[7] Lukezic, Alan, et al. "Discriminative correlation filter with channel and spatial reliability." Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2017.</li>
+                    <li>[8] Hopper, Darrel G., Robert B. Blanton, and Daniel N. Marticello. "Large-area high-definition cockpit displays." Cockpit Displays II. Vol. 2462. International Society for Optics and Photonics, 1995.</li>
+                    <li>[9] Dopping-Hepenstal, L. L. "Head-up displays. The integrity of flight information." IEE Proceedings F (Communications, Radar and Signal Processing). Vol. 128. No. 7. IET Digital Library, 1981.</li>
+                    <li>[10] Wharf, J. H., and B. Ellis. "Future cockpit displays." Optics & Laser Technology 7.1 (1975): 25-30.</li>
+                    <li>[12] Kaminani, Sridher. "Human computer interaction issues with touch screen interfaces in the flight deck." 2011 IEEE/AIAA 30th Digital Avionics Systems Conference. IEEE, 2011.</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer " class="wrapper alt ">
+        <div class="inner ">
+            <ul class="menu ">
+                <li>Thomas Mutombi Drayton</li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js "></script>
+    <script src="assets/js/jquery.scrollex.min.js "></script>
+    <script src="assets/js/jquery.scrolly.min.js "></script>
+    <script src="assets/js/browser.min.js "></script>
+    <script src="assets/js/breakpoints.min.js "></script>
+    <script src="assets/js/util.js "></script>
+    <script src="assets/js/main.js "></script>
+
+</body>
+
+</html>
