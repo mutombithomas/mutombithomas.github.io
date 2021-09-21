@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                             <ul class="actions">
-                                <li><a href="" class="button submit">Send Message</a></li>
+                                <li><input type="submit" value="Send Message" /></li>
                             </ul>
                         </form>
                     </section>
