@@ -165,7 +165,7 @@
                 <p>Please feel free to contact me with any inquiries you may have and I'll get back to you as soon as possible! </p>
                 <div class="split style1">
                     <section>
-                        <form method="post" action="#">
+                        <form method="post" action="contact-form-handler.php">
                             <div class="fields">
                                 <div class="field half">
                                     <label for="name">Name</label>
