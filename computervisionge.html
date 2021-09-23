@@ -41,36 +41,36 @@
             <div class="inner">
                 <h2>GE Avionics: Automated User Recognition in Cockpits</h2>
                 <ol>
-                    <a href="#background ">
+                    <a href="#background">
                         <li>1. Background and Commercial Incentives</li>
                     </a>
-                    <a href="#objecttracking ">
+                    <a href="#objecttracking">
                         <li>2. Object Tracking</a>
                     <ol>
-                        <a href="#investover ">
+                        <a href="#investover">
                             <li>2.1. Investigation Overview</li>
                         </a>
-                        <a href="#evalmeth ">
+                        <a href="#evalmeth">
                             <li>2.2. Evaluation Methodology</li>
                         </a>
-                        <a href="#res&d ">
+                        <a href="#res&d">
                             <li>2.3. Results & Discussion</li>
                         </a>
-                        <a href="#objtrkconc ">
+                        <a href="#objtrkconc">
                             <li>2.4 Object Tracking Conclusion</li>
                         </a>
                     </ol>
                     </li>
-                    <a href="#fingertipd&o ">
+                    <a href="#fingertipd&o">
                         <li>3. Fingertip Detection & Occulsion</a>
                     <ol>
-                        <a href="#handid ">
+                        <a href="#handid">
                             <li>3.1. Hand Identification</li>
                         </a>
-                        <a href="#fingertipd ">
+                        <a href="#fingertipd">
                             <li>3.2. Fingertip Detection</li>
                         </a>
-                        <a href="#dealingwo ">
+                        <a href="#dealingwo">
                             <li>3.3. Dealing With Occulsion</li>
                         </a>
                     </ol>
@@ -79,7 +79,7 @@
                         <li>4. References</li>
                     </a>
                 </ol>
-                <h3 id="background ">1. Background and Commercial Incentive</h3>
+                <h3 id="background">1. Background and Commercial Incentive</h3>
                 <p>
                     Large area displays in cockpits are becoming increasingly common in modern designs for commercial aircraft to increase ease of operations and to make efficient use of limited cockpit space[8][9][10]. Touchscreen sensors alone cannot identify when multiple
                     users are interacting with the touchscreen or which touch coordinates belong to each user[12]. For this reason, there is a growing need to use computer vision techniques to automate user recognition to avoid inadvertent commands that
@@ -87,7 +87,7 @@
                 </p>
 
                 <br>
-                <h2 id="bbjecttracking">2. Object Tracking</h2>
+                <h2 id="objecttracking">2. Object Tracking</h2>
                 <h4 id="investover">2.1 Investigation Overview</h4>
                 <p>
                     An investigation into object tracking algorithms as part of python’s OpenCV library was performed in order to gauge the performance of standard object algorithms. Using the vertical camera position, a candidate set of tracking algorithms were investigated
@@ -137,7 +137,7 @@
                         </table>
                     </div>
                 </section>
-                <h4 id="evalmeth ">2.2 Evalution Methodology</h4>
+                <h4 id="evalmeth">2.2 Evalution Methodology</h4>
                 <p>
                     Evaluation of each object tracking algorithm was performed by individually assessing the performance on 3 separate videos, each of which simulated realistic user interactions with the monitor that would be seen in the cockpit environment.
                 </p>
@@ -188,17 +188,17 @@
                 <p>
                     <img src="images/geavionics/obj_trkng_speed.jpg " class="image fit " />Figure 4. Comparison of algorithms speed for all 3 hand motions: single touch (top left); non-crossing hands (top right); crossing touch (bottom).</p>
                 </p>
-                <h4 id="objtrkconc ">2.4 Object Tracking Conclusion</h4>
+                <h4 id="objtrkconc">2.4 Object Tracking Conclusion</h4>
                 <p>
                     In general, the investigation into the use of OpenCV’s object tracking algorithms concluded that even the most accurate algorithm, was too erratic and slow for use in any system that demands reliability. Furthermore, the inability of any algorithm to
                     deal with occlusion was a key factor in deciding not to pursue this approach any further.
                 </p>
-                <h2 id="fingertipd&o ">3. Fingertip Detection & Occulsion</h2>
+                <h2 id="fingertipd&o">3. Fingertip Detection & Occulsion</h2>
                 <p>
                     In addition to the assessment of OpenCV's tracking algorithms, a separate hand tracking methodology was developed and implemented using OpenCV's library of computer vision functions. These specifically focused on hand identification through pixel manipulation,
                     as well as fingertip detection. Both methdologies are described below.
                 </p>
-                <h4 id="handid ">3.1 Hand Identification</h4>
+                <h4 id="handid">3.1 Hand Identification</h4>
                 <p>
                     After the infrared video feed was recieved by a python script, a perspective transform was applied to each frame to focus only on the touch screen display. A Gaussian blur was then applied to each frame. This is where each pixel is the sum of all the
                     pixels within a specified radius, which is then multiplied by a gaussian kernel.
@@ -218,7 +218,7 @@
                 <p>
                     Athough each object in the frame was able to be matched to the same object previous frames, OpenCV's SIFT feature detection was used to track the movement of the hand. Since each individual hand was identified, fingertip detection was implemented.
                 </p>
-                <h4 id="fingertipd ">3.2 Fingertip Detection</h4>
+                <h4 id="fingertipd">3.2 Fingertip Detection</h4>
                 <p>
                     <span><img src="images/geavionics/fingertip.jpg " class="image right " /></span> Fingertip detection and tracking was implemented using contour detection and convex hull techniques. Using the output of <i>findContours</i>, the <i>convexHull</i>                    function was used to generate a convex hull. This can be described as the smallest polygon that will contain the contour detected. The <i>convexityDefects</i> function was then used to approximate the gaps between the contour and convex
                     hull using straight lines. An example of this technique can be seen in the figure to the right.
@@ -227,7 +227,7 @@
                     To filter between fingertips and other identified defects, the inner angles between the convexity defect lines was calculated using the the following logic: if the inner angle was found to be ≤ 90 degrees the defect was treated as a fingertip and marked.
                     If it was found to be larger the defect, it was ignored. This methodology allows for all fingertips to be tracked simultaneously.
                 </p>
-                <h4 id="dealingwo ">3.3 Dealing with Occlusion</h4>
+                <h4 id="dealingwo">3.3 Dealing with Occlusion</h4>
                 <p>
                     To deal with occlusion, a Gaussian mixture method model (GMM) was created for each hand found in the video feed. Between each frame, the hand was tracked and the hand in the current frame was translated to the position of the model. The current hand was
                     then applied to the model and over time, as the hand moves into the frame, the model of the full hand is created. Figure 5 shown the progression of the GMM as the users hand moves into the frame; every 5th frame is shown as the movement
