@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Thomas Mutombi Drayton</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="index.html" class="logo"><strong>Mutombi</strong> <span>Data Scientist</span></a>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ml_landing.html">Machine Learning</a></li>
+                <li><a href="engineering_landing.html">Engineering</a></li>
+                <li><a href="webscraping_landing.html">Web Data Extraction</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main" class="alt">
+
+
+            <!-- One -->
+            <section id="one">
+                <div class="inner">
+                    <header class="major">
+                        <h1>Elon's Twitter Sentiment</h1>
+                    </header>
+                    <span class="image main"><img src="images/tesla_factory.jpg" alt="" /></span>
+                    <p>
+                        I personally like Elon Musk. With his take over of twitter, I asked myself the question,
+                        <b>what is the public's general opinion of Elon and how does this sentiment correlate to Telsa's stock price?</b>
+                    </p>
+                    <p>
+                        We'll use Twitter gauge public sentiment and use Natural Language Processing (NLP) to measure the consensus from a sample of 20,000 daily tweets extracted from Twitter. The sentiment metrics we'll use are:
+                        <ul>
+                            <li><b>Polarity</b>, which measures the directionality of the sentiment i.e. if the content of the tweet is positive, negative or neutral. This is measured from [-1,1].</li>
+                            <li><b>Subjectivity</b> measures the extent of the subjectivity or objectivity in the tweet. We can think of this as a proxy for the level of emotions or opinions expressed on a scale of [0,1].</li>
+                        </ul>
+                    </p>
+                    <p>
+                        We'll also gather NASDAQ market data to have an initial look at the if the movement of the Telsa shares changes with Elon Musk's public sentiment. But first we'll write a function to extract the tweets <i>(see github for complete code)</i>:
+                    </p>
+                    <pre>
+						<code>
+def daily_tweets( n_daily_tweets:int = 100 , t_days:int = 30 , query:str = '' , username:str = '@elonmusk') -> DataFrame:
+    '''
+    Returns a dataframe of at most n daily tweets for a given query for a specified period of time starting today.
+
+    Parameters
+    ------------
+    t_days (int): The number of days prior to today for which you want to extract tweets.
+    n_daily_tweets (int): The number of tweets to extract each day.
+    query (str): The hastag or tweet you want to tweet about.
+    '''
+
+    for day_n in range(t_days):
+        #moving time period
+        start_day = datetime.datetime.today() - datetime.timedelta(days=day_n+1)
+        start_day = start_day.strftime("%Y-%m-%d")
+        end_day = datetime.datetime.today() - datetime.timedelta(days=day_n)
+        end_day = end_day.strftime("%Y-%m-%d")
+        
+        #get data
+        df_day = search_tweets(
+                                query = '"{}"'.format(query), 
+                                since=start_day, 
+                                until=end_day, 
+                                exclude_retweets=True, 
+                                exclude_replies=False, 
+                                max_tweets=n_daily_tweets ,
+                                lang='en' ,
+                                username=username
+                            )
+
+        #make date a column not index
+        df_day.reset_index(inplace=True)
+
+        # append to single df
+        if day_n == 0:
+            df = df_day.copy()
+        else:
+            df = pd.concat([df , df_day] , ignore_index=True)
+
+    return df
+						</code>
+					</pre>
+                    <p>
+                        Next we can extract the time history of the Telsa stock market using the Alpha Vantage API by creating a <code>TimeSeries</code> object and using the <code>get_daily</code> method to extract the full time history for Telsa shares.
+                    </p>
+                    <pre>
+						<code>ts = TimeSeries(key , output_format='pandas')
+df_stock , meta = ts.get_daily(symbol='TSLA',outputsize='full')</code>
+					</pre>
+                    <p>
+                        Now we're ready to see our what our sentiment analysis looks like alongside the Telsa stock!
+                    </p>
+                    <div style="text-align:center">
+                        <iframe width=100% height="800" frameborder="0" scrolling="no" src="//plotly.com/~mutombii/28.embed?autosize=true&logo=false&link=false"></iframe>
+                    </div>
+                    <p>
+                        Looks like this is clearly not a simple task! Just visually we can see that the sentiment from sampled #elonmusk tweets is incredibly varied which is mostly likely due to the inclusion of noise from the broad net we cast. We can specifically see this
+                        from the error bands which show the 95% confidence interval for each sentiment scores, which are consistently wide throughout the 30 day period. The language is in general fairly neutral from the sample, but more positive than
+                        negative and stays fairly consistent thoughout. Although it's plausible to assume that the public sentiment would remain consistent over a period of a month, we cannot conclude this with certainty without additional work on understanding
+                        what we consider the ground truth to be on public perception.
+                    </p>
+                    <p>
+                        However, interestingly, a study on the correlation between twitter sentiment analysis and approval ratings across the 4 years of the Trump presidency found no correlation between the two methodologies in gauging public sentiment. The paper can be found
+                        <a href="https://ieeexplore.ieee.org/abstract/document/9475935">here</a>.
+                    </p>
+                    <p>
+                        <b>Now looking at Elon Musk's Tweets and replies</b>, we can see a more varied sentiment although his language still measures somewhat neutral as would be expected when on a public platform. However, his subjectivity scores are
+                        much more varied and are much more likely to impact public perceptions or confidence, in-turn, potentially impacting Telsa stock. Hopefully I will revisit this in the future!
+                    </p>
+                    <div style="text-align:center">
+                        <iframe width=100% height="800" frameborder="0" scrolling="no" src="//plotly.com/~mutombii/26.embed?autosize=true&logo=false&link=false"></iframe>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

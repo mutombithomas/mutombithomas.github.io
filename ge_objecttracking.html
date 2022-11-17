@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Thomas Mutombi Drayton</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+    <script>
+        window.MathJax = {
+            MathML: {
+                extensions: ["mml3.js", "content-mathml.js"]
+            }
+        };
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=MML_HTMLorMML"></script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="index.html" class="logo"><strong>Mutombi</strong> <span>Data Scientist</span></a>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ml_landing.html">Machine Learning</a></li>
+                <li><a href="engineering_landing.html">Engineering</a></li>
+                <li><a href="webscraping_landing.html">Web Data Extraction</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main" class="alt">
+
+            <!-- One -->
+            <section id="one">
+                <div class="inner">
+                    <header class="major">
+                        <h1>Object Tracking</h1>
+                    </header>
+                    <span class="image main"><img src="images/cockpit.jpg" alt="" /></span>
+                    <p>
+                        Large area displays in cockpits are increasingly common in modern designs for commercial aircraft to increase ease of operations and make efficient use of limited cockpit space. Touchscreen sensors alone cannot identify when multiple users are interacting
+                        with the touchscreen or which touch coordinates belong to each user. For this reason, there is a growing need to use computer vision techniques to automate user recognition to avoid inadvertent commands that are not acceptable
+                        in the safety critical Aerospace domain.
+                    </p>
+                    <p>
+                        Therefore, in this article we'll take a look at the performance of standard object tracking algorithms to see which could be used in a cockpit environment. So, which algorithms should we consider? The table below is a summary of them:
+                    </p>
+                    <section>
+                        <div class="table-wrapper ">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>OpenCV Algorithm</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BOOSTING/AdaBoost</td>
+                                        <td>Based on the principle of boosting by creating multiple weak learners and combining them into a single strong learner.</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>MIL (Multiple Instance Learning)</td>
+                                        <td><a href="https://medium.com/swlh/multiple-instance-learning-c49bd21f5620">The algorithm learns from training instances that are labelled as from a group rather than an individual label.</a></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>TLD (Tracking-Learning-Detection)</td>
+                                        <td>Instead of learning features from the first frame, the algorithm updates changing features during tracking progression [5].</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>KCF (Kernelized Correlation Filter)</td>
+                                        <td>The KCF learns a model of the object from the first frame and subsequently attempts to locate the same model in future frames.</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>CSRT (Channel Spatial Reliability Tracker)</td>
+                                        <td><a href="https://broutonlab.com/blog/opencv-object-tracking">This algorithm uses spatial reliability maps for adjusting the filter support to the part of the selected region from the frame for tracking, which gives an ability to increase the search area and track non-rectangular objects.</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MEDIANFLOW</td>
+                                        <td>Tracks a given object using the backward and forward frames with respect to the current one.</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <p>
+                        Given the environment of the touchscreens is in a cockpit, we need to evaluate each algorithm in a space realistic of user interactions with a monitor that would be seen in a cockpit. An example is shown below:
+                    </p>
+                    <video autoplay loop class="video" width=100%>
+							<source src="images/videos/CSRT_tracker.mp4"/>
+					</video>
+                    <p>
+                        The next question we need to consider is, <i><b>what is the best way to assess the performance of the tracking algorithms?</b></i>
+                    </p>
+                    <p>
+                        For this application, <b>precision</b> and <b>recall</b> are both appropriate as precision indicates the proportion of correct predictions out of all positive predictions, whereas recall provides a measure of how likely the algorithm
+                        is to make the correct prediction.
+                    </p>
+                    <div style="text-align:center">
+                        <math><mi>P</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></math>
+                    </div>
+                    <div style="text-align:center">
+                        <math display="block "><mi>R</mi><mi>e</mi><mi>c</mi><mi>a</mi><mi>l</mi><mi>l</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></math>
+                    </div>
+                    <p>
+                        <br> Each prediction is classified in relation to a hand-labelled ground truth (<i>GT</i>) for each frame where a bounding box of constant dimensions defined a true positive. To gauge the similarity of a prediction to the <i>GT</i>,
+                        the Intersection Over Union (<i>IOU</i>) metric is used as shown below, where <i>P</i> is the predicting bounding box of the same dimensions as the <i>GT</i>.
+                    </p>
+                    <div style="text-align:center">
+                        <math display="block "><mi>I</mi><mi>O</mi><mi>U</mi><mo>=</mo><mfrac><mrow><mi>G</mi><mi>T</mi><mo largeop="true ">&#x2229;</mo><mi>P</mi></mrow><mrow><mi>G</mi><mi>T</mi><mo largeop="true ">&#x2229;</mo><mi>P</mi></mrow></mfrac></math>
+                    </div>
+                    <p>
+                        <br> Depending on the threshold, T, set for the algorithm, <math><mi>I</mi><mi>O</mi><mi>U</mi><mo>&#x2265;</mo><mi>T</mi></math> determines a true positive and value below is classified as a false positive. If the tracker fails
+                        to give any prediction, a false negative is flagged. For all videos in the data set, thresholds <math><mi>T</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math> were assessed. The area under the curve
+                        (AUC) is computed for each metric which is referenced below.
+                    </p>
+                    <p>
+                        Firstly, lets look at the precision of the classifiers...
+                    </p>
+                    <p>
+                        <img src="images/geavionics/obj_trkng_precision.jpg " class="image fit " />Comparison of precision of object tracking algorithms for all 3 hand motions: single touch (top left); non-crossing touch (top right); crossing touch (bottom).
+                    </p>
+                    <p>
+                        The subplots shown below display the precision of the tracking algorithms over the full range of IoU thresholds. The degradation of all trackers as the threshold increases is the result of the stricter requirement to capture a greater proportion of the
+                        GT to assign a true positive classification. With regard to relative performances, the CSRT looks to have performed outperformed the other tracking algorithms with the highest average precision AUC score and for all 3 hand crossing
+                        scenarios at 0.58!
+                    </p>
+                    <p>
+                        Now lets look at recall performance...
+                    </p>
+                    <p>
+                        <img src="images/geavionics/obj_trkng_recall.jpg " class="image fit " />Comparison of recall of object tracking algorithms for all 3 hand motions: single touch (top left); non-crossing hands (top right); crossing touch (bottom).
+                    </p>
+                    <p>
+                        A perfect recall score for trackers such as CSRT and MEDIANFLOW is indicative of their ability to avoid prediction failure irrespective of whether the prediction is correct or not. This can be inferred from the recall definition where the metric is strongly
+                        influenced by the false negative count. It should also be noted that all trackers that showed a non-unity score, contained instances where no predicting bounding box was projected. TLD consistently failed in this regard, as well
+                        as in the speed comparison.
+                    </p>
+                    <p>
+                        <i><b>How about the speed though?</b></i> For responsive recognition, the algorithms need respond as fast as possible so the rate at which algorithms are able to process each frame while tracking is shown below by the FPS.
+                    </p>
+                    <p>
+                        <img src="images/geavionics/obj_trkng_speed.jpg " class="image fit " />Comparison of algorithms speed for all 3 hand motions: single touch (top left); non-crossing hands (top right); crossing touch (bottom).</p>
+                    </p>
+                    <p>
+                        Although CSRT is able to better predict the GT than all other algorithms, it could not match the others for speed. KCF and MEDIANFLOW look to show their ability to efficiently process each frame from their high FPS rate but both with severe fluctuations.
+                        The reason for this is could not be specifically identified but could be due to the computer hardware used for the investigation. Nenvertheless, the error is systematic so is algorithm invariant.
+                    </p>
+                    <p>
+                        All in all, this narrow selection of tracking algorithm would likely be insufficient to meet the requirements of an aerospace application due to the weight placed on safety, as well as the untuned and untrained nature of the investigation. However, very
+                        interesting learning!
+                    </p>
+                </div>
+            </section>
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

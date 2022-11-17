@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Thomas Mutombi Drayton</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="index.html" class="logo"><strong>Mutombi</strong> <span>Data Scientist</span></a>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ml_landing.html">Machine Learning</a></li>
+                <li><a href="engineering_landing.html">Engineering</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main" class="alt">
+
+            <!-- One -->
+            <section id="one">
+                <div class="inner">
+                    <header>
+                        <h1>Novelty Detection of Jet Engine Data</h1>
+                    </header>
+                    <span class="image main"><img src="images/jet_engines.jpg" alt="" /></span>
+                    <h3>Problem context: How is the data collected?</h3>
+                    <p>Jet engines are some of the most complex and safety critical technologies used in transportation to date. The testing process is rigorous and continues throughout the life of the unit, with the most detailed form existing during static
+                        test-bed environments. Here, a multitude of sensors monitor engine performance to determine engine functionality and behaviour.
+                    </p>
+                    <p>Unsurprisingly, this testing process generates high dimensional data due to the high sampling rate and number of sensors used, which makes the data challenging with regards to preprocessing. Additionally, the design importance place
+                        on reliability and robustness makes novel or abnormal events incredibly infrequent in nature. Both of these factors combined make this a high dimensional and highly imbalanced classification problem.
+                    </p>
+                    <p>So the problem becomes, where in the data show the tell-tale signs of abnormal engine behaviour?</p>
+
+                    <h3>Goals: What is impact of my work?</h3>
+                    <p>Firstly, minimisation of false negative occurances during the testing process would reduce investigations from maintenance engineers, hence improving the efficiency of jet engine testing and giving the company a competitive edge.</p>
+                    <p>Furthermore and more importantly, minimisation of false positives would reduce mis-detections which are of greater consequences depending on the reliance placed on the algorithm.</p>
+
+                    <h3>Problem Workflow:</h3>
+                    <a class="image fit">
+                        <img src="images/problem_workflow.png" alt="project workflow">
+                    </a>
+                    <br>
+                    <p>
+                        For the purposes of confidentiality, all results from the work have been excluded. However the following demonstrates the generalised version of the used to distingush between normal and abnormal engine behaviour.
+                    </p>
+                    <h3>Relative Risk Analysis</h3>
+                    <p>In order to find a feature space that displayed discriminatory informatino between the two classes, the first two principle components from PCA (Principle Component Analysis) were used. Here, the likelihood ratio was used identify
+                        the relative risk of detecting the engine behvaiour.
+                    </p>
+                    <p>
+                        Performing this analysis provided a means to check whether the likelihood ratio would exceeded a specified threshold, which would indicate areas of concern, for a given feature space, or subspace. Depending on the threshold, descriptive and nonlinear
+                        decision boundaries were formed, which were able to successfully characterised class distributions.
+                    </p>
+                    <p>
+                        Below shows an example of the liklihood ratio on some random data. The decision boundary threshold was of course tuned using stratified cross validation to generalise the model.
+                    </p>
+                    <video class="image fit" autoplay loop muted>
+						<source src="images/videos/basic_animation_600.mp4">
+					</video>
+                    <h3>Results: How well can we detect novel events?</h3>
+                    <p>Pretty well it turns out! Although the Receiver Operating Curve isn't shown for the purposes of confidentiality, this approached proved to be effective in automatically understanding engine behaviour.</p>
+                    <p>This case study just shows the power data science has in engineering sectors. This capability allows users to be better guided towards making a better assessment, and therefore a better decision.</p>
+                </div>
+            </section>
+
+        </div>
+
+
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js "></script>
+    <script src="assets/js/jquery.scrolly.min.js "></script>
+    <script src="assets/js/jquery.scrollex.min.js "></script>
+    <script src="assets/js/browser.min.js "></script>
+    <script src="assets/js/breakpoints.min.js "></script>
+    <script src="assets/js/util.js "></script>
+    <script src="assets/js/main.js "></script>
+
+</body>
+
+</html>
