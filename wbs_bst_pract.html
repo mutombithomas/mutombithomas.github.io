@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-40GPWJK9KQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-40GPWJK9KQ');
+    </script>
+    <title>Thomas Mutombi Drayton</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="index.html" class="logo"><strong>Mutombi</strong> <span></span></a>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="predictive_maintenance.html">Predictive Maintenance</a></li>
+                <li><a href="engineering_landing.html">Engineering</a></li>
+                <li><a href="webscraping_landing.html">Web Data Extraction</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main" class="alt">
+
+
+            <!-- One -->
+            <section id="one">
+                <div class="inner">
+                    <header>
+                        <h1>Accelerating Web Data Processing with Scalable Techniques</h1>
+                    </header>
+                    <!--<span class="image main"><img src="images/markets_numbers.jpg" alt="" /></span>-->
+                    <p>
+                        <i>Scroll to the end to find the tdlr version.</i>
+                    </p>
+                    <p>
+                        As a budding machine learning engineer, data extraction at scale is crucial because it provides the foundation for building accurate and effective machine learning models. We commonly want larger data sets in ML as the large data set has the potential
+                        to give a more comprehensive representation of the signal and noise that we're interested in distinguishing in our models.
+                    </p>
+                    <h3>Common Key Considerations</h3>
+                    <p>
+                        <ol>
+                            <li><b>Dynamic Storage:</b> Typically the fastest way to dynamically store cleaned and structured data is to use a database like SQLite.</li>
+                            <li><b>Construct efficient crawling paths:</b> Design a crawling path that will effectively navigate through the data source to scrape the required data. To be thorough, this often involves an exhaustive and brute force approach,
+                                which emphasize the importance on optimising your code for speed.</li>
+                            <li><b>Respect the website’s robots.txt file:</b> This file contains instructions for web crawlers and should be adhered to in order to avoid any legal issues.</li>
+                            <lI><b>Optimize code for speed:</b> Optimizing your code can help to reduce the amount of time it takes for your web scraper to complete its task.</lI>
+                        </ol>
+                        We'll focus on the last point.
+                    </p>
+                    <h3>How should we optimise the extraction process?</h3>
+                    <ul>
+                        <li>
+                            <h4>Proxies</h4>
+                        </li>
+                        <p>
+                            Firstly, we dont want to hammer the website from a single IP address and user-agent. Most servers will have a finite bandwidth that they dedicate to a single user, so exceeding this is likely to result in restricted usage due to suspected DOS attacks.
+                        </p>
+                        <p>
+                            A good way to get around this is to access a proxy providing service. This is the bread and butter of web-scraping techniques and opens the door for the use of asychronous requests.
+                        </p>
+                        <li>
+                            <h4>Multi-threaded Processing or Asynchronous Processes</h4>
+                        </li>
+                        <span class="image fit"><img src="images/async.png" alt="" /></span>
+                        <p>
+                            Asynchronous processing and multithreaded processing are two different approaches to executing multiple tasks concurrently in a program. Both approaches can be used to improve the performance and responsiveness of a program, but they differ in how they
+                            accomplish this.
+                        </p>
+                        <p>
+                            Asynchronous programming involves executing multiple tasks concurrently by using non-blocking I/O and event-driven programming. In this approach, tasks are executed in separate threads, but they do not block the main thread. Instead, each task is executed
+                            as soon as it becomes ready, without waiting for other tasks to complete. This allows multiple tasks to be executed simultaneously, without slowing down the main thread.
+                        </p>
+                        <p>
+                            Although requests can be sent concurrently, it is important to note that the rate limits can still be adhered to using semaphores; a variable that can be used to keep track of the number of concurrent tasks that are allowed to run at the same time. This
+                            is still of course faster than sequential execution, but just puts some reins on obliterating a website server.
+                        </p>
+                        <P>
+                            Multithreaded processing, on the other hand, involves executing multiple tasks concurrently by using multiple threads. In this approach, each task is executed in a separate thread, and all threads run simultaneously. Multithreaded processing can improve
+                            the performance of a program by allowing multiple tasks to be executed in parallel.
+                        </P>
+                    </ul>
+                    <h2>TLDR</h2>
+                    <p>When optimizing the extraction process for webscraping, one should consider using proxies to avoid hammering the website from a single IP address and user-agent, as well as utilizing either asynchronous processes or multithreaded processing
+                        to improve the performance of the program by allowing multiple tasks to be executed in parallel. These methods should be used along side optimised storage methods.</p>
+
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
