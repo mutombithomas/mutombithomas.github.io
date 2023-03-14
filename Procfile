@@ -1,0 +1,1 @@
+web: python only_flaskapp/app.py
